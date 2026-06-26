@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'theme.dart';
+import 'keyboard_view.dart';
 
 /// Setup / onboarding screen that guides users to enable CodeKeys.
 class SetupScreen extends StatefulWidget {
@@ -16,6 +17,9 @@ class _SetupScreenState extends State<SetupScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _animController;
   late Animation<double> _fadeAnim;
+  final TextEditingController _testInputController = TextEditingController();
+  final FocusNode _testFocusNode = FocusNode();
+  bool _showInAppKeyboard = false;
 
   static const _imeSettingsChannel = MethodChannel('com.codekeys/app');
 
@@ -36,6 +40,8 @@ class _SetupScreenState extends State<SetupScreen>
   @override
   void dispose() {
     _animController.dispose();
+    _testInputController.dispose();
+    _testFocusNode.dispose();
     super.dispose();
   }
 
@@ -251,24 +257,63 @@ class _SetupScreenState extends State<SetupScreen>
                 const SizedBox(height: 24),
 
                 // Test area
-                Text(
-                  'Try it out:',
-                  style: TextStyle(
-                    color: theme.subtext,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Try it out:',
+                      style: TextStyle(
+                        color: theme.subtext,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        setState(() {
+                          _showInAppKeyboard = !_showInAppKeyboard;
+                        });
+                      },
+                      icon: Icon(
+                        _showInAppKeyboard
+                            ? Icons.keyboard_hide_rounded
+                            : Icons.keyboard_rounded,
+                        size: 16,
+                        color: theme.accent,
+                      ),
+                      label: Text(
+                        _showInAppKeyboard ? 'Hide In-App Keyboard' : 'Show In-App Keyboard',
+                        style: TextStyle(
+                          color: theme.accent,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 8),
                 TextField(
+                  controller: _testInputController,
+                  focusNode: _testFocusNode,
                   maxLines: 3,
                   style: TextStyle(
                     color: theme.text,
                     fontFamily: 'monospace',
                     fontSize: 14,
                   ),
+                  showCursor: true,
+                  readOnly: _showInAppKeyboard, // Use in-app custom keyboard instead of system keyboard when active
+                  onTap: () {
+                    if (_showInAppKeyboard) {
+                      // Prevent system keyboard from opening when custom in-app keyboard is active
+                      _testFocusNode.requestFocus();
+                    }
+                  },
                   decoration: InputDecoration(
-                    hintText: 'Tap here and start typing with CodeKeys...',
+                    hintText: _showInAppKeyboard
+                        ? 'Tap on keys below to type...'
+                        : 'Tap here and start typing with CodeKeys...',
                     hintStyle: TextStyle(
                       color: theme.subtext.withValues(alpha: 0.5),
                     ),
@@ -292,6 +337,66 @@ class _SetupScreenState extends State<SetupScreen>
                     ),
                   ),
                 ),
+                if (_showInAppKeyboard) ...[
+                  const SizedBox(height: 16),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: theme.base,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: theme.border.withValues(alpha: 0.3),
+                      ),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: KeyboardView(
+                      onTextInserted: (text) {
+                        final val = _testInputController.text;
+                        final sel = _testInputController.selection;
+                        int start = sel.start;
+                        int end = sel.end;
+                        if (start < 0) {
+                          start = val.length;
+                          end = val.length;
+                        }
+                        final newVal = val.replaceRange(start, end, text);
+                        _testInputController.value = TextEditingValue(
+                          text: newVal,
+                          selection: TextSelection.collapsed(offset: start + text.length),
+                        );
+                      },
+                      onBackspace: () {
+                        final val = _testInputController.text;
+                        final sel = _testInputController.selection;
+                        int start = sel.start;
+                        int end = sel.end;
+                        if (start < 0) return;
+                        if (start == end) {
+                          if (start > 0) {
+                            final newVal = val.replaceRange(start - 1, start, '');
+                            _testInputController.value = TextEditingValue(
+                              text: newVal,
+                              selection: TextSelection.collapsed(offset: start - 1),
+                            );
+                          }
+                        } else {
+                          final newVal = val.replaceRange(start, end, '');
+                          _testInputController.value = TextEditingValue(
+                            text: newVal,
+                            selection: TextSelection.collapsed(offset: start),
+                          );
+                        }
+                      },
+                      onMoveCursor: (offset) {
+                        final val = _testInputController.text;
+                        final sel = _testInputController.selection;
+                        int currentPos = sel.start;
+                        if (currentPos < 0) currentPos = val.length;
+                        int newPos = (currentPos + offset).clamp(0, val.length);
+                        _testInputController.selection = TextSelection.collapsed(offset: newPos);
+                      },
+                    ),
+                  ),
+                ],
                 const SizedBox(height: 32),
               ],
             ),

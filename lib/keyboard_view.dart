@@ -9,7 +9,16 @@ import 'theme.dart';
 
 /// The main keyboard widget rendered inside the IME.
 class KeyboardView extends StatefulWidget {
-  const KeyboardView({super.key});
+  final ValueChanged<String>? onTextInserted;
+  final VoidCallback? onBackspace;
+  final ValueChanged<int>? onMoveCursor;
+
+  const KeyboardView({
+    super.key,
+    this.onTextInserted,
+    this.onBackspace,
+    this.onMoveCursor,
+  });
 
   @override
   State<KeyboardView> createState() => _KeyboardViewState();
@@ -80,17 +89,29 @@ class _KeyboardViewState extends State<KeyboardView> {
 
   void _insertText(String text) {
     if (_hapticEnabled) HapticFeedback.lightImpact();
-    _channel.invokeMethod('insertText', {'text': text});
+    if (widget.onTextInserted != null) {
+      widget.onTextInserted!(text);
+    } else {
+      _channel.invokeMethod('insertText', {'text': text});
+    }
   }
 
   void _deleteBackward() {
     if (_hapticEnabled) HapticFeedback.lightImpact();
-    _channel.invokeMethod('deleteBackward', {'count': 1});
+    if (widget.onBackspace != null) {
+      widget.onBackspace!();
+    } else {
+      _channel.invokeMethod('deleteBackward', {'count': 1});
+    }
   }
 
   void _sendEnter() {
     if (_hapticEnabled) HapticFeedback.mediumImpact();
-    _channel.invokeMethod('sendKeyEvent', {'keyCode': 66}); // KEYCODE_ENTER
+    if (widget.onTextInserted != null) {
+      widget.onTextInserted!('\n');
+    } else {
+      _channel.invokeMethod('sendKeyEvent', {'keyCode': 66}); // KEYCODE_ENTER
+    }
   }
 
   void _onKeyTap(String key) {
@@ -106,9 +127,16 @@ class _KeyboardViewState extends State<KeyboardView> {
 
   void _onSnippetTap(Snippet snippet) {
     if (_hapticEnabled) HapticFeedback.mediumImpact();
-    _channel.invokeMethod('insertText', {'text': snippet.code});
-    if (snippet.cursorOffset > 0) {
-      _channel.invokeMethod('moveCursor', {'offset': -snippet.cursorOffset});
+    if (widget.onTextInserted != null) {
+      widget.onTextInserted!(snippet.code);
+      if (snippet.cursorOffset > 0 && widget.onMoveCursor != null) {
+        widget.onMoveCursor!(-snippet.cursorOffset);
+      }
+    } else {
+      _channel.invokeMethod('insertText', {'text': snippet.code});
+      if (snippet.cursorOffset > 0) {
+        _channel.invokeMethod('moveCursor', {'offset': -snippet.cursorOffset});
+      }
     }
   }
 
