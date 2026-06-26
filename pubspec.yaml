@@ -1,0 +1,21 @@
+name: codekeys
+description: "CodeKeys — A programmer keyboard for Android. Language-specific snippets, symbols, and shortcuts at your fingertips."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.5.0
+  provider: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
