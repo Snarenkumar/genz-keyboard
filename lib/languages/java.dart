@@ -43,5 +43,5 @@ const javaLanguage = ProgrammingLanguage(
     Snippet(label: 'null', code: 'null', cursorOffset: 0),
     Snippet(label: 'this.', code: 'this.', cursorOffset: 0),
   ],
-  symbols: ['{', '}', '[', ']', '(', ')', ';', ':', '<', '>', '@', '\"', '.', ','],
+  symbols: ['{', '}', '[', ']', '(', ')', ';', ':', '<', '>', '@', '"', '.', ','],
 );

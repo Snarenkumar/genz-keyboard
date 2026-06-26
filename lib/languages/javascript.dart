@@ -43,5 +43,5 @@ const javascriptLanguage = ProgrammingLanguage(
     Snippet(label: 'import', code: "import {  } from '';", cursorOffset: 2),
     Snippet(label: 'export', code: 'export default ', cursorOffset: 0),
   ],
-  symbols: ['{', '}', '[', ']', '(', ')', ';', ':', '\'', '\"', '`', '=', '!', '/'],
+  symbols: ['{', '}', '[', ']', '(', ')', ';', ':', '\'', '"', '`', '=', '!', '/'],
 );

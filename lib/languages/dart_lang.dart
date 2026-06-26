@@ -37,5 +37,5 @@ const dartLanguage = ProgrammingLanguage(
     Snippet(label: '\${}', code: '\${}', cursorOffset: 1),
     Snippet(label: 'import', code: "import '';", cursorOffset: 2),
   ],
-  symbols: ['{', '}', '[', ']', '(', ')', ';', ':', '<', '>', '@', '\"', '\'', '?', '.', ','],
+  symbols: ['{', '}', '[', ']', '(', ')', ';', ':', '<', '>', '@', '"', '\'', '?', '.', ','],
 );

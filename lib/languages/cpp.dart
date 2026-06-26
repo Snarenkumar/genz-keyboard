@@ -35,5 +35,5 @@ const cppLanguage = ProgrammingLanguage(
     Snippet(label: 'using', code: 'using namespace std;', cursorOffset: 0),
     Snippet(label: 'template', code: 'template <typename T>', cursorOffset: 0),
   ],
-  symbols: ['{', '}', '[', ']', '(', ')', '<', '>', ';', ':', '#', '&', '*', '\"'],
+  symbols: ['{', '}', '[', ']', '(', ')', '<', '>', ';', ':', '#', '&', '*', '"'],
 );

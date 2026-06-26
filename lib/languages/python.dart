@@ -37,11 +37,11 @@ const pythonLanguage = ProgrammingLanguage(
       cursorOffset: 0,
     ),
     Snippet(label: '#', code: '# ', cursorOffset: 0),
-    Snippet(label: '\"\"\"', code: '\"\"\"  \"\"\"', cursorOffset: 4),
+    Snippet(label: '"""', code: '"""  """', cursorOffset: 4),
     Snippet(label: 'from', code: 'from  import ', cursorOffset: 8),
     Snippet(label: 'return', code: 'return ', cursorOffset: 0),
     Snippet(label: 'None', code: 'None', cursorOffset: 0),
     Snippet(label: 'True', code: 'True', cursorOffset: 0),
   ],
-  symbols: [':', '(', ')', '[', ']', '{', '}', '#', '\"', '\'', '_', '=', '@', ','],
+  symbols: [':', '(', ')', '[', ']', '{', '}', '#', '"', '\'', '_', '=', '@', ','],
 );
