@@ -99,11 +99,11 @@ class CodeKeysIME : InputMethodService() {
     override fun onCreateInputView(): View {
         val engine = flutterEngine ?: return FrameLayout(this)
 
-        // Create a container
+        val heightPx = (275 * resources.displayMetrics.density).toInt()
         val container = FrameLayout(this).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
-                (300 * resources.displayMetrics.density).toInt() // ~300dp height
+                heightPx
             )
         }
 

@@ -178,21 +178,13 @@ class _KeyboardViewState extends State<KeyboardView> {
   @override
   Widget build(BuildContext context) {
     final theme = _theme;
-    return Container(
+    return Material(
       color: theme.base,
       child: SafeArea(
         top: false,
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            LanguageSwitcher(
-              selectedLanguage: _currentLanguage,
-              onLanguageChanged: (lang) {
-                setState(() => _currentLanguage = lang);
-                _saveLanguage(lang.name);
-              },
-              theme: theme,
-            ),
             SnippetRow(
               language: _currentLanguage,
               onSnippetTap: _onSnippetTap,
@@ -442,7 +434,7 @@ class _KeyButtonState extends State<_KeyButton> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 60),
         width: widget.width,
-        height: 44,
+        height: 52,
         margin: const EdgeInsets.symmetric(horizontal: 2),
         decoration: BoxDecoration(
           color: _pressed ? theme.keyPressed : theme.keyBg,
@@ -530,7 +522,7 @@ class _SpecialKeyButtonState extends State<_SpecialKeyButton> {
                 : null,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 60),
-          height: 44,
+          height: 52,
           margin: const EdgeInsets.symmetric(horizontal: 1),
           decoration: BoxDecoration(
             color: bg,
@@ -589,7 +581,7 @@ class _SpaceBarState extends State<_SpaceBar> {
       onTapCancel: () => setState(() => _pressed = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 60),
-        height: 44,
+        height: 52,
         margin: const EdgeInsets.symmetric(horizontal: 2),
         decoration: BoxDecoration(
           color: _pressed ? theme.keyPressed : theme.keyBg,

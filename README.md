@@ -129,6 +129,169 @@ flutter build apk --debug
 4. Open any app with a text field
 5. Switch to CodeKeys using the keyboard switcher in the bottom navigation bar
 
+---
+
+## 📖 Usage Guide
+
+Once CodeKeys is enabled and selected as your keyboard, here's how to use every feature:
+
+### 1. 🔄 Switching Programming Languages
+
+The **top row** of the keyboard shows language tabs:
+
+```
+[ ⚙️ C++ ]  [ 🐍 PY ]  [ 📦 JS ]  [ ☕ JAVA ]  [ 🎯 DART ]
+```
+
+- **Tap any language tab** to instantly switch — the snippet row below updates with language-specific shortcuts
+- The **currently selected language** is highlighted with a blue accent chip
+- Your selected language is **saved automatically** — it will persist even after closing the keyboard
+- The **space bar** shows the current language name (e.g., `C++`) so you always know which mode you're in
+
+### 2. ⚡ Using Code Snippets
+
+The **second row** (below the language tabs) contains scrollable **code snippet buttons** shown in green:
+
+```
+[ cout << ]  [ cin >> ]  [ endl ]  [ :: ]  [ -> ]  [ #include ]  [ main() ] ...
+```
+
+- **Tap a snippet** to insert the full code template at your cursor position
+- **Scroll horizontally** to see more snippets — each language has 8–12 snippets
+- Snippets insert **complete templates**, not just keywords. For example:
+  - Tapping `for` in C++ inserts: `for (int i = 0; i < n; i++) {  }`
+  - Tapping `def` in Python inserts: `def function_name():` with cursor positioned at the function name
+  - Tapping `console.log` in JS inserts: `console.log()` with cursor inside the parentheses
+- **Smart cursor placement**: After inserting, the cursor is automatically moved to the most useful position (e.g., inside parentheses or brackets)
+
+### 3. ⌨️ Keyboard Modes
+
+CodeKeys has **three input modes** you can switch between:
+
+#### QWERTY Mode (Default)
+The standard letter keyboard layout with full A-Z keys.
+
+#### Symbols Page 1 — Tap `123`
+Common symbols used in programming:
+```
+[ 1 ] [ 2 ] [ 3 ] [ 4 ] [ 5 ] [ 6 ] [ 7 ] [ 8 ] [ 9 ] [ 0 ]
+[ @ ] [ # ] [ $ ] [ _ ] [ & ] [ - ] [ + ] [ ( ] [ ) ] [ / ]
+[ * ] [ " ] [ ' ] [ : ] [ ; ] [ ! ] [ ? ]
+```
+
+#### Symbols Page 2 — Tap `2/2`
+Extended/special characters:
+```
+[ ~ ] [ ` ] [ | ] [ · ] [ √ ] [ π ] [ ÷ ] [ × ] [ ¶ ] [ ∆ ]
+[ £ ] [ € ] [ ¥ ] [ ^ ] [ ° ] [ = ] [ { ] [ } ] [ \ ] [ % ]
+[ © ] [ ® ] [ ™ ] [ < ] [ > ] [ [ ] [ ] ]
+```
+
+**How to switch between modes:**
+
+| You're in...     | Tap this...  | To get to...          |
+|------------------|--------------|-----------------------|
+| QWERTY (letters) | `123`        | Symbols Page 1        |
+| Symbols Page 1   | `2/2`        | Symbols Page 2        |
+| Symbols Page 2   | `1/2`        | Symbols Page 1        |
+| Any Symbols page | `ABC`        | Back to QWERTY        |
+
+### 4. ⬆️ Shift & Caps Lock
+
+The **Shift key** (⬆️ arrow on the left) has three states:
+
+| Tap count | State       | Icon                | Behavior                              |
+|-----------|-------------|---------------------|---------------------------------------|
+| 1 tap     | **Shift**   | ↑ (filled arrow)    | Next letter typed will be UPPERCASE, then auto-reverts to lowercase |
+| 2 taps    | **Caps Lock** | ⇪ (caps icon)     | ALL letters typed will be UPPERCASE until you tap again |
+| 3 taps    | **Off**     | ↑ (outline arrow)   | Back to normal lowercase              |
+
+### 5. ⌫ Backspace
+
+- **Tap** the backspace key (⌫) to delete one character
+- **Hold** the backspace key to **continuously delete** characters (repeats every 80ms for fast deletion)
+- Release to stop deleting
+
+### 6. ↵ Enter Key
+
+- The **blue Enter key** (↵) on the bottom-right sends a newline / return action
+- Works the same as the Enter key on any standard keyboard
+- Provides **medium haptic feedback** for tactile confirmation
+
+### 7. 📊 Bottom Row Controls
+
+The bottom row contains essential utility keys:
+
+```
+[ 123 ]  [ , ]  [          C++          ]  [ . ]  [ ↵ ]
+```
+
+| Key         | Function                                          |
+|-------------|---------------------------------------------------|
+| `123` / `ABC` | Toggle between QWERTY and Symbol mode           |
+| `,` (comma)  | Inserts a comma                                  |
+| Space bar    | Inserts a space — displays current language name |
+| `.` (period) | Inserts a period                                 |
+| `↵` (Enter)  | Sends Enter / newline                            |
+
+---
+
+## ⚙️ Settings Guide
+
+Open the **CodeKeys app** to access Settings (gear icon in the app). Available options:
+
+### Keyboard Settings
+| Setting            | Description                                              | Default  |
+|--------------------|----------------------------------------------------------|----------|
+| **Default Language** | Choose which language loads when the keyboard opens     | C++      |
+
+### Appearance
+| Setting         | Description                                    | Default  |
+|-----------------|------------------------------------------------|----------|
+| **Dark Theme**  | Toggle between dark (VS Code) and light mode   | On       |
+
+### Feedback
+| Setting             | Description                           | Default  |
+|---------------------|---------------------------------------|----------|
+| **Haptic Feedback** | Vibrate on every key press            | On       |
+| **Sound Feedback**  | Play a click sound on key press       | Off      |
+
+> **Note**: Settings are saved automatically and persist across app restarts and keyboard sessions.
+
+---
+
+## 🎯 Quick Reference
+
+| Action                    | How to do it                                              |
+|---------------------------|-----------------------------------------------------------|
+| Switch language           | Tap a language tab at the top (C++, PY, JS, JAVA, DART)  |
+| Insert code snippet       | Tap a green snippet button in the second row              |
+| See more snippets         | Scroll the snippet row horizontally                       |
+| Type uppercase letter     | Tap Shift (⬆️) once, then type the letter                |
+| Enable caps lock          | Tap Shift (⬆️) twice                                     |
+| Type numbers & symbols    | Tap `123` at bottom-left                                  |
+| Type extended symbols     | In symbol mode, tap `2/2`                                 |
+| Return to letters         | Tap `ABC` at bottom-left                                  |
+| Delete one character      | Tap ⌫ (backspace)                                        |
+| Fast delete many chars    | Hold ⌫ (backspace)                                       |
+| New line                  | Tap the blue ↵ key                                       |
+| Check current language    | Look at the space bar label                               |
+| Change default language   | Open CodeKeys app → Settings → Default Language           |
+| Toggle dark/light theme   | Open CodeKeys app → Settings → Dark Theme                 |
+| Toggle vibration          | Open CodeKeys app → Settings → Haptic Feedback            |
+
+---
+
+## 💡 Tips & Tricks
+
+1. **Code on WhatsApp/Telegram**: Use CodeKeys in any messaging app to share code snippets with friends — just switch to CodeKeys, select your language, and tap the snippet you need
+2. **Quick brackets**: Switch to Symbols Page 1 (`123`) for `( )`, or Symbols Page 2 for `{ } [ ] < >`
+3. **Arrow operator shortcut**: In C++ mode, tap the `->` snippet instead of typing dash and greater-than separately
+4. **Smart templates**: Snippets like `for`, `if`, and `class` insert full boilerplate — you just fill in the blanks
+5. **Switch mid-conversation**: You can switch languages anytime without losing your typed text — only the snippet row changes
+
+---
+
 ## 🎨 Design
 
 ### Dark Theme (Default)
